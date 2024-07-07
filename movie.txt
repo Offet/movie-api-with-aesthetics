@@ -1,0 +1,33 @@
+
+
+
+
+*******************THE USER MODEL****************************
+
+
+***************BCRYPT IN THE USER MODEL**********************
+In the User model, import bcryt to encrypt your user details using hashtags so that nobody can have access to the database details
+
+The ***.genSalt(10)*** function in your code snippet is a critical part of securely hashing passwords using bcrypt
+********
+.genSalt(10) generates a random salt that is crucial for securely hashing passwords with bcrypt. It adds an extra layer of protection against password cracking attacks.
+****************
+
+In the hashing code, 
+************if (!this.isModified("password")) 
+        return next();*******************
+
+1. this: Inside the pre-save hook function, this refers to the current user document being saved. It holds the properties and values associated with that particular user.
+
+2. .isModified("password"): This is a Mongoose method that checks if the password field of the user document has been modified since the document was last loaded. It returns true if the password has been changed, and false if it hasn't.
+
+3. ! (logical NOT operator): The exclamation mark (!) negates the result of the .isModified("password") call. So, !this.isModified("password") essentially checks if the password has not been modified.
+
+4. return next();: The return next(); statement exits the pre-save hook function immediately if the password hasn't been modified. The next argument is likely a callback function passed to the pre-save hook that allows the document saving process to continue.
+
+In simpler terms, this code ensures that the password hashing logic only runs if the user has actually changed their password. 
+If the password remains the same, there's no need to re-hash it. This improves performance and avoids unnecessary computations.
+
+
+
+
